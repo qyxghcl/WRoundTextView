@@ -16,7 +16,7 @@ Step 2. Add the dependency
 
 ```
 dependencies {
-	implementation 'com.github.qyxghcl:WRoundTextView:Tag'
+	implementation 'com.github.qyxghcl:WRoundTextView:v1.0.1'
 }
 ```
 
@@ -68,3 +68,7 @@ halfRadius > radius > leftTopRadius
 //优先级:
 bgColorNormal/bgColorSelect设置任意一项则startColor/endColor属性失
 ```
+
+## 使用:
+
+其余属性与 textView 完全相同
