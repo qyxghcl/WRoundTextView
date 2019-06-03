@@ -66,7 +66,10 @@ halfRadius > radius > leftTopRadius
 
 //(bgColorNormal/bgColorSelect)与(startColor/endColor)不能同时生效
 //优先级:
-bgColorNormal/bgColorSelect设置任意一项则startColor/endColor属性失
+bgColorNormal/bgColorSelect设置任意一项则startColor/endColor属性失效
+
+//strokeWidth
+无法设置小数,setStroke()并不支持float的设置,会被强转掉
 ```
 
 ## 使用:
