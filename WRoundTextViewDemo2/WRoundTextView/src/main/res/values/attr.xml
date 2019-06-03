@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WidgetRoundTextView">
+        <attr name="bgColorNormal" format="reference|color" />
+        <attr name="bgColorSelect" format="reference|color" />
+        <attr name="radius" format="dimension" />
+        <attr name="angle" format="integer" />
+        <attr name="startColor" format="reference|color" />
+        <attr name="endColor" format="reference|color" />
+        <attr name="leftTopRadius" format="dimension" />
+        <attr name="leftBottomRadius" format="dimension" />
+        <attr name="rightTopRadius" format="dimension" />
+        <attr name="rightBottomRadius" format="dimension" />
+        <attr name="halfRadius" format="boolean" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="strokeColorNormal" format="reference|color" />
+        <attr name="strokeColorSelect" format="reference|color" />
+    </declare-styleable>
+</resources>
