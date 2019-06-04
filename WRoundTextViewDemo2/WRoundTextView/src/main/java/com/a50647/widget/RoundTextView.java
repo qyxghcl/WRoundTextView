@@ -3,9 +3,6 @@ package com.a50647.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -21,15 +18,13 @@ import com.WRoundTextView.R;
  */
 public class RoundTextView extends AppCompatTextView {
     private Context mContext;
-    private Bitmap mTextBitmap;
-    private Canvas mTextCanvas;
-    private Paint mTextPaint;
     private int mBgColorNormal, mBgColorSelect,
             mStartColor, mEndColor,
             mWidth, mHeight, mAngle,
             mStrokeColorNormal, mStrokeColorSelect;
     private float mRadius, mLeftTopRadius, mLeftBottomRadius, mRightTopRadius, mRightBottomRadius, mStrokeWidth;
     private boolean mHalfRadius, mSelected;
+    private GradientDrawable gradientDrawable;
 
     public RoundTextView(Context context) {
         this(context, null);
@@ -43,7 +38,6 @@ public class RoundTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initAttrs(attrs);
-        initPaintAndRectF();
     }
 
     @SuppressLint("CustomViewStyleable")
@@ -68,48 +62,23 @@ public class RoundTextView extends AppCompatTextView {
         }
     }
 
-    /**
-     * 初始化画笔
-     */
-    private void initPaintAndRectF() {
-        mTextPaint = new Paint();
-        mTextPaint.setAntiAlias(true);
-        mTextPaint.setDither(true);
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        createTextCanvas(w, h);
         mWidth = w;
         mHeight = h;
-    }
-
-    /**
-     * 创建一个canvas,用于替换原本的画布
-     *
-     * @param w 宽
-     * @param h 高
-     */
-    private void createTextCanvas(int w, int h) {
-        mTextBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        mTextCanvas = new Canvas(mTextBitmap);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(mTextCanvas);
-        drawBackground(canvas);
-        canvas.drawBitmap(mTextBitmap, 0, 0, mTextPaint);
+        GradientDrawable gradientDrawable = getGradientDrawable();
+        setBackground(gradientDrawable);
     }
 
     /**
      * 绘制背景
      *
-     * @param canvas textView的原始画布
      */
-    private void drawBackground(Canvas canvas) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
+    private GradientDrawable getGradientDrawable() {
+        if (gradientDrawable == null){
+            gradientDrawable = new GradientDrawable();
+        }
         //定义角度 优先级half>radius>leftRadius
         float radius;
         if (mHalfRadius || mRadius > 0) {
@@ -155,8 +124,7 @@ public class RoundTextView extends AppCompatTextView {
             gradientDrawable.setColors(colors);
             gradientDrawable.setOrientation(getOrientation(mAngle));
         }
-        gradientDrawable.setBounds(0, 0, mWidth, mHeight);
-        gradientDrawable.draw(canvas);
+        return gradientDrawable;
     }
 
     /**
@@ -167,7 +135,8 @@ public class RoundTextView extends AppCompatTextView {
     public void setRoundTextViewSelect(boolean select) {
         setSelected(select);
         mSelected = select;
-        postInvalidate();
+        GradientDrawable gradientDrawable = getGradientDrawable();
+        setBackground(gradientDrawable);
     }
 
     /**
