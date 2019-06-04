@@ -30,7 +30,8 @@ public class RoundTextView extends AppCompatTextView {
             mStrokeColorNormal, mStrokeColorSelect;
     private float mRadius, mLeftTopRadius, mLeftBottomRadius, mRightTopRadius, mRightBottomRadius, mStrokeWidth;
     private boolean mHalfRadius, mSelected;
-
+    private GradientDrawable gradientDrawable; 
+    
     public RoundTextView(Context context) {
         this(context, null);
     }
@@ -109,7 +110,9 @@ public class RoundTextView extends AppCompatTextView {
      * @param canvas textView的原始画布
      */
     private void drawBackground(Canvas canvas) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
+        if(gradientDrawable == null){
+            gradientDrawable = new GradientDrawable();
+        }
         //定义角度 优先级half>radius>leftRadius
         float radius;
         if (mHalfRadius || mRadius > 0) {
